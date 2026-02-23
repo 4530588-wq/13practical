@@ -3,17 +3,36 @@ import java.lang.Math.*;   import java.io.*;
 import java.lang.reflect.Array;
 import java.text.*;
 import java.util.Arrays;
+import java.util.Random;
 
 public class timeMethods {
-    public static int N = ....;
+    public static int N =;
+    static class Node{
+        int key;
+        String data;
+        Node(int key,String data){
+            this.key = key;
+            this.data = data;
+        }
+    }
+
 
     public static void main(String args[]) {
+        Random rand = new Random();
+        int target = 4862;
+        int[] randomKeys = new int[30];
+        for(int a=0;a<randomKeys.length;a++){
+            int index = rand.nextInt(32654)+1;
+            randomKeys[a] = index;
+        }
+
 
         DecimalFormat twoD = new DecimalFormat("0.00");
         DecimalFormat fourD = new DecimalFormat("0.0000");
         DecimalFormat fiveD = new DecimalFormat("0.00000");
 
-        long start, finish;
+        long start = 1;
+        long finish = 32654;
         double runTime = 0, runTime2 = 0, time;
         double totalTime = 0.0;
         int n = N;
@@ -24,8 +43,8 @@ public class timeMethods {
             start = System.currentTimeMillis();
 
             // call the procedures to time here:
-            Linearsearch();
-            Binarysearch(...);
+            Linearsearch(randomKeys,target);
+            Binarysearch(randomKeys,target,start,finish);
             // Figure out how to alter this guideline here,
 
             finish = System.currentTimeMillis();
@@ -56,30 +75,33 @@ public class timeMethods {
         System.out.println();
     }
 
-    public static int Linearsearch(int[] arr, int target) {
+    public static Node Linearsearch(Node[] arr, int key) {
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == target) {
-                return i;
+            if (arr[i].key == key) {
+                return arr[i];
             }
         }
-        return -1;
+        return null;
     }
 
-    public static int Binarysearch(int[] arr, int target, int low, int high,) {
+    public static Node Binarysearch(Node[] arr, int key){
         Arrays.sort(arr);
-        int mid = low + (high - low) / 2;
+        int low =0;
+        int high = arr.length -1;
         while (low <= high) {
-            for (int s = 0; s < arr.length; s++) {
-                if (arr[mid] == target) {
-                    return mid;
-                } else if (arr[mid] < target) {
+            int mid = (high-low)/2;
+                if (arr[mid].key == key) {
+                    return arr[mid];
+                }
+                else if (arr[mid].key < key) {
                     low = mid + 1;
-                } else {
+                }
+                else {
                     high = mid - 1;
                 }
             }
+        return null;
         }
-      //  return -1;
     }
 }
 
